@@ -1,8 +1,21 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return 'Hello World!';
+  getMorning(): string {
+    throw new BadRequestException('Goog Morning!');
+  }
+
+  getAfternoon(): string {
+    throw new ConflictException('Goog Afternoon!');
+  }
+
+  getEvening(): string {
+    throw new UnauthorizedException('Goog Evening!');
   }
 }
