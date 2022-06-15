@@ -10,7 +10,6 @@ import { RollbarConfig } from '../config/rollbar.config';
 
 @Catch(HttpException)
 export class AllExceptionsFilter implements ExceptionFilter {
-  private logger = null;
   constructor(private readonly rollbar: RollbarConfig) {}
 
   catch(exception: HttpException, host: ArgumentsHost) {
@@ -18,10 +17,10 @@ export class AllExceptionsFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
     const status = exception.getStatus();
-    this.logger = new Logger(request.url);
+    const logger = new Logger(request.url);
     const rollbar = this.rollbar.setup();
 
-    this.logger.error({ exception, stack: exception.stack });
+    logger.error({ exception, stack: exception.stack });
     rollbar.error({ exception, stack: exception.stack }, request.url);
 
     response.status(status).json({
