@@ -6,7 +6,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { RollbarConfig } from 'src/config/rollbar.config';
+import { RollbarConfig } from '../config/rollbar.config';
 
 @Catch(HttpException)
 export class AllExceptionsFilter implements ExceptionFilter {
